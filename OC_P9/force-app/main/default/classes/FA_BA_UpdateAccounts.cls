@@ -3,11 +3,17 @@ global class Batch01AccountChiffreAffaire implements Database.Batchable<sObject>
    global Database.QueryLocator start(Database.BatchableContext info){ 
        //Requeter seulement les comptes qui ont au moins une commande avec le Status 'Ordered'
        return Database.getQueryLocator('SELECT Id FROM Account');
-
+       
+       //new instance of accountQuery
+       FA_QR_Account accountQuery = new FA_QR_Account();
    }
     
    global void execute(Database.BatchableContext info, List<Account> scope){      
-       list<Order> listOrders =  [SELECT Id, TotalAmount, AccountId FROM Order];
+    
+    //Call the method getOrders   
+    list<Order> listOrders =  accountQuery.getOrders();
+       
+       //[SELECT Id, TotalAmount, AccountId FROM Order];
        
 		for(integer i=0; i < scope.size(); i++){
 			Account myAccount = scope[i];

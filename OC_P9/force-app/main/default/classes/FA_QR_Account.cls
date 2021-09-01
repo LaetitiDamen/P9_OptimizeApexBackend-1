@@ -9,15 +9,18 @@ public with sharing class FA_QR_Account {
 
     }
     /**
-     * 
+     * @auteur:laetitia
+     * @date:14/08/2021
+     * @description: methode qui récupere account à partir de l'ID 
      */
-    public List<Account> getAccountsByIds(set<Id> setAccountIds) {
-        List<Account> accs = [
+    public Map<Id,Account> getAccountsByIds(set<Id> setAccountIds) {
+        Map<Id,Account> mapAccountId = new Map<Id,Account> ([
             SELECT Id, Chiffre_d_affaire__c 
             FROM Account 
             WHERE Id in:setAccountIds 
-        ];
-        return accs;
+        ]);
+
+        return mapAccountId;
     }
 
 }
